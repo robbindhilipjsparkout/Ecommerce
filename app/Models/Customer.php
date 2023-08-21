@@ -17,6 +17,7 @@ class Customer extends Model
         'city',
         'state',
         'pincode',
+        'total_amount',
     ];
 }
 

@@ -17,36 +17,36 @@
         .table th,
         .table td {
             vertical-align: middle;
+            padding:10px;
+            text-align:center;
+            text-transform:uppercase;
+            font-size: 15px;
         }
-        .product {
-    display: flex; /* Use flexbox to align items */
-    align-items: center; /* Center align items vertically */
-    max-width: 600px; /* Adjust the maximum width as needed */
-    margin: 0 auto; /* Center the content horizontally */
-}
+    
 
 .product-title {
     flex: 1; /* Allow the text to expand as needed */
     margin-right: 20px; /* Add some space between text and image */
 }
 
-.product-image {
-    max-width: 100%; /* Ensure the image stays within its container */
-    height: auto;
-}
-page-title {
-  position: relative;
-  padding: 100px 0;
-  background-size: cover;
-  background-image: url('');
-  background-position: center center;
-  background-repeat: no-repeat;
-opacity: 0.88;
-}
+.page-title {
+        position: relative;
+        padding: 115px 0;
+        margin-left:-95px;
+        margin-right:-95px;
+        margin-bottom: 20px;
+        background-size: cover;
+        background-image: url('images/shirtbg2.jpeg'); 
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0.95;
+        
+    }
+
 .page-title h1 {
   position: relative;
   float: left;
-  font-size: 40px;
+  font-size: 30px;
   color: #ffffff;
   line-height: 0px;
   text-align: center;
@@ -62,29 +62,42 @@ opacity: 0.88;
 
 .page-title .inner-container {
   position: relative;
+}
+.card-header {
+        background-color: lightblue;
+        border-radius: 10px;
+    }
+    .thead{
+        background-color: lightblue;
+    }
+ .logo{
 
 
-    </style>
+    margin:-20px;
+ }
+</style>
 </head>
 
 <body>
 
     <div class="container">
-                      
+        
+                    <!-- <div class="logo-box">
+                        <div class="logo"><a href=""><img src="images/vipershirt.png" width=20% hight=20% alt=""></a></div>
+                    </div> -->
+
     <section class="page-title">
-  <div class='auto-container'>
-    <div class='inner-container'><h1 >PRODUCT LIST</h1></div>
+    <div class='auto-container'>
+    <div class='inner-container'><h1 >SHIRTS LIST</h1></div>
     </div>
-</section>
+    </section>
 
-    <img src="shirtbg.jpeg" alt="Product Image" class="product-image">
-</div>
-@if (session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
+    @if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-        <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
+          <table class="table table-bordered table-hover">
+            <thead class="thead">
                 <tr>
                     <th>Product Image</th>
                     <th>Product Name</th>
@@ -92,7 +105,7 @@ opacity: 0.88;
                     <th>Product Offer Price</th>
                     <th>QTY</th>
                     <th>Total Price</th>
-                    <th></th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -104,106 +117,93 @@ opacity: 0.88;
                         <td>Rs. {{ $product->product_offer_price }}</td>
                         <td>
                         <input type="number" class="form-control qty-input" data-offer="{{ $product->product_offer_price }}" min="0" max="999" value="0" oninput="validateQuantity(this)">
-
                         </td>
                         <td class="total-price">Rs. 0</td>
-                       
                     </tr>
-       
                 @endforeach
-                <tr>
-    <td colspan="3">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="mb-0">Customer Information</h3>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('placeOrder') }}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="customer_name" placeholder="Customer Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="mobile_number" placeholder="Mobile Number" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Email ID">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="address" placeholder="Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="city" placeholder="City" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="state" placeholder="State" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="pincode" placeholder="Pincode" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Place Order</button>
-                </form>
-            </div>
-        </div>
-    </td>
-</tr>
-<tr>
-    <td colspan="4"></td>
-    <td class="text-right"><strong>Total Amount:</strong></td>
-    <td id="total-amount" colspan="2"><strong>Rs. 0</strong></td>
-</tr>
-
-            
             </tbody>
+          </table>
 
-            
-        </table>
-      
 
+         
+          <div class="card-header col-md-3 offset-md-9"> 
+    <strong class="mb-0">Total Amount:</strong>
+    <span id="total-amount">
+        <strong>Rs. 0</strong>
+    </span>
+</div>
+
+
+<div class="card col-md-7" style="margin-top:-50px">
+    <div>
+        <h3 class="mb-0">Customer Information</h3>
     </div>
+    <div class="card-body c">
+        <form action="{{ route('placeOrder') }}" method="post">
+            @csrf
+            <div class="form-group">
+                <input type="text" class="form-control" name="customer_name" placeholder="Customer Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="mobile_number" placeholder="Mobile Number" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Email ID">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="address" placeholder="Address" required>
+            </div>
+            <div class="form-group">
+                    <input type="text" class="form-control" name="city" placeholder="City" required>
+            </div>
+             <div class="form-group">
+                        <input type="text" class="form-control" name="state" placeholder="State" required>        
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="pincode" placeholder="Pincode" required>
+            </div>
+            <br>
+            <input type="hidden" id="total" name="total">
 
-    <!-- Include Bootstrap JS and any other necessary scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <button type="submit" class="btn btn-primary mb-4  col-md-3 offset-md-5" >Submit</button>
+        </form>
+    </div>
+</div>
 
-    <script>
+</div>   
+   <br>
+
+<!-- JavaScript scripts and libraries -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<<script>
     document.addEventListener('DOMContentLoaded', () => {
         const qtyInputs = document.querySelectorAll('.qty-input');
         const totalPrices = document.querySelectorAll('.total-price');
+        const totalAmountElement = document.getElementById('total-amount');
 
         qtyInputs.forEach((input, index) => {
             input.addEventListener('input', () => {
                 const offerPrice = +input.dataset.offer;
                 const quantity = +input.value;
                 totalPrices[index].textContent = `Rs. ${offerPrice * quantity}`;
+                updateTotalAmount();
             });
         });
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const qtyInputs = document.querySelectorAll('.qty-input');
-        const totalAmountElement = document.getElementById('total-amount');
-
-        qtyInputs.forEach(input => input.addEventListener('input', updateTotalAmount));
 
         function updateTotalAmount() {
-            const totalAmount = [...qtyInputs].reduce((sum, input) => {
-                const offerPrice = parseFloat(input.dataset.offer);
-                const quantity = parseInt(input.value);
-                return sum + offerPrice * quantity;
-            }, 0);
+            const totalAmount = [...qtyInputs].reduce((sum, input) =>
+                sum + parseFloat(input.dataset.offer) * parseInt(input.value), 0);
             totalAmountElement.textContent = `Rs. ${totalAmount.toFixed(2)}`;
+            $("#total").val(totalAmount);
+        // alert(totalAmount);
         }
 
-        updateTotalAmount();
     });
-</script>
 
-
-<script>
     function validateQuantity(input) {
         const enteredQty = parseInt(input.value);
         if (enteredQty > 999) {
@@ -212,6 +212,7 @@ opacity: 0.88;
         }
     }
 </script>
+
 
 
 

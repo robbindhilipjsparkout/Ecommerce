@@ -13,32 +13,14 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+
         return view('product_list.product', compact('products'));
     }
 
     public function placeOrder(Request $request)
     {
-
-       // Validate the request data
-    $validator = Validator::make($request->all(), [
-        'customer_name' => 'required',
-        'mobile_number' => 'required',
-        'email'=>'required',
-        'address'=>'required',
-        'city'=>'required',
-        'state'=>'required',
-        'pincode'=>'required',
-        // Add validation rules for other fields
-    ]);
-
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
-
-      
-
-    // Create or update customer information
- 
+        // dd($request->all());
+  
     $customer = Customer::Create(
 
         [
@@ -49,14 +31,12 @@ class ProductController extends Controller
             'city' => $request->input('city'),
             'state' => $request->input('state'),
             'pincode' => $request->input('pincode'),
-        ]
-    );  
-    //  dd($customer);
-  
-    
+            'total_amount' => $request->input('total'),
+            
+        ]);  
 
-        // Logic to save order or display a confirmation message
-
+        
+ 
         return redirect()->route('product')->with('success', 'Customer details submitted successfully!');
     }
 }
